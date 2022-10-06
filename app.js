@@ -24,40 +24,49 @@ app.event('app_home_opened', async ({ event, client, context }) => {
         callback_id: 'home_view',
 
         /* body of the view */
-        blocks: [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "*Welcome to your _App's Home_* :tada:"
-            }
-          },
-          {
-            "type": "divider"
-          },
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "This button won't do much for now but you can set up a listener for it using the `actions()` method and passing its unique `action_id`. See an example in the `examples` folder within your Bolt app."
-            }
-          },
-          {
-            "type": "actions",
-            "elements": [
-              {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "text": "Click me!"
-                }
-                
-              }
-             
-              
-            ]
-          }
-        ]
+        "blocks": [
+		{
+			"type": "divider"
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Farmhouse",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Kin Khao",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com",
+          "action_id": "button_a"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Ler Ros",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				}
+			]
+		}
+	]
       }
     });
   }
