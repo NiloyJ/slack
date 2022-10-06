@@ -51,12 +51,43 @@ app.event('app_home_opened', async ({ event, client, context }) => {
                   "type": "plain_text",
                   "text": "Click me!"
                 }
+                
               }
             ]
           }
         ]
       }
     });
+  }
+  catch (error) {
+    console.error(error);
+  }
+});
+
+app.action('button_a', async ({ ack, body, context }) => {
+  // Acknowledge the button request
+  ack();
+
+  try {
+    // Update the message
+    const result = await app.client.chat.update({
+      token: context.botToken,
+      // ts of message to update
+      ts: body.message.ts,
+      // Channel of message
+      channel: body.channel.id,
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: '*The button was clicked!*'
+          }
+        }
+      ],
+      text: 'Message from Test App'
+    });
+    console.log(result);
   }
   catch (error) {
     console.error(error);
@@ -156,6 +187,7 @@ app.action('button_abc', async ({ ack, body, context }) => {
 app.command('/schedule', async ({ body,ack, payload, context }) => {
   // Acknowledge the command request
   ack();
+  let capture = []
   
 
   try {
@@ -184,7 +216,8 @@ app.command('/schedule', async ({ body,ack, payload, context }) => {
       // Text in the notification
       text: 'Message from Test App'
     });
-    result.message.blocks.map(res => console.log(res.text.text));
+    result.message.blocks.map(res => capture.push(res.text.text));
+    console.log(capture)
   }
   catch (error) {
     console.error(error);
