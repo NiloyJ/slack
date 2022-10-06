@@ -24,49 +24,23 @@ app.event('app_home_opened', async ({ event, client, context }) => {
         callback_id: 'home_view',
 
         /* body of the view */
-        "blocks": [
-		{
-			"type": "divider"
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Farmhouse",
-						"emoji": true
-					},
-					"value": "click_me_123"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Kin Khao",
-						"emoji": true
-					},
-					"value": "click_me_123",
-					"url": "https://google.com",
-          "action_id": "button_a"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Ler Ros",
-						"emoji": true
-					},
-					"value": "click_me_123",
-					"url": "https://google.com"
-				}
-			]
-		}
-	]
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: 'Go ahead. Click it.'
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Click me!'
+            },
+            action_id: 'button_a'
+          }
+        }
+      ],
       }
     });
   }
@@ -81,7 +55,7 @@ app.action('button_a', async ({ ack, body, context }) => {
 
   try {
     // Update the message
-    const result = await app.client.chat.update({
+    const result = await app.client.chat.postMessage({
       token: context.botToken,
       // ts of message to update
       ts: body.message.ts,
