@@ -169,7 +169,7 @@ app.action('button_abc', async ({ ack, body, context }) => {
   }
 });
 
-app.command('/schedule', async ({ body,ack, payload, context }) => {
+app.command('/text', async ({ body,ack, payload, context }) => {
   // Acknowledge the command request
   ack();
   let capture = []
