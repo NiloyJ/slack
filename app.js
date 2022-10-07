@@ -308,33 +308,32 @@ app.action('button_abc', async ({ ack, body, context }) => {
   }
 });
 
-app.command('/text', async ({ body,ack, payload, context }) => {
+app.command('/text', async ({ body,ack, client, payload, context }) => {
   // Acknowledge the command request
   ack();
   let capture = []
-  
 
-  try {
-    const result = await app.client.chat.postMessage({
-      token: process.env.O_Auth_Token,
-      // Channel to send message to
-      channel: payload.channel_id,
-      // Include a button in the message (or whatever blocks you want!)
-      
+try {
+    const channelId = "C044CLQM0CW";
+// ID of the user you want to show the ephemeral message to
+   const userId = "U044CLPF64E";
+  // Call the chat.postEphemeral method using the WebClient
+  const result = await client.chat.postEphemeral({
+    channel: channelId,
+    user: userId,
+    text: "Shhhh only you can see this :shushing_face:"
+  });
 
-
-      
-
-      // Text in the notification
-
-    });
-    result.message.blocks.map(res => capture.push(res.text.text));
-    console.log(capture)
-  }
-  catch (error) {
-    console.error(error);
-  }
+  console.log(result);
+}
+catch (error) {
+  console.error(error);
+}
 });
+
+
+
+
 
 
 
