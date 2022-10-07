@@ -110,26 +110,152 @@ app.command('/slash-demo-yt', async ({ ack, payload, context }) => {
       // Channel to send message to
       channel: payload.channel_id,
       // Include a button in the message (or whatever blocks you want!)
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: 'Go ahead. Click it.'
-          },
-          accessory: {
-            type: 'button',
-            text: {
-              type: 'plain_text',
-              text: 'Click me!'
-            },
-            action_id: 'button_abc'
-          }
-        }
-      ],
-      // Text in the notification
-      text: 'Message from Test App'
-    });
+      
+	"type": "modal",
+	"submit": {
+		"type": "plain_text",
+		"text": "Submit",
+		"emoji": true
+	},
+	"close": {
+		"type": "plain_text",
+		"text": "Cancel",
+		"emoji": true
+	},
+	"title": {
+		"type": "plain_text",
+		"text": "App menu",
+		"emoji": true
+	},
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Hi <fakelink.toUser.com|@David>!* Here's how I can help you:"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":calendar: *Create event*\nCreate a new event"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Create event",
+					"emoji": true
+				},
+				"style": "primary",
+				"value": "click_me_123"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":clipboard: *List of events*\nChoose from different event lists"
+			},
+			"accessory": {
+				"type": "static_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Choose list",
+					"emoji": true
+				},
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "My events",
+							"emoji": true
+						},
+						"value": "value-0"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "All events",
+							"emoji": true
+						},
+						"value": "value-1"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Event invites",
+							"emoji": true
+						},
+						"value": "value-1"
+					}
+				]
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":gear: *Settings*\nManage your notifications and team settings"
+			},
+			"accessory": {
+				"type": "static_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Edit settings",
+					"emoji": true
+				},
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Notifications",
+							"emoji": true
+						},
+						"value": "value-0"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Team settings",
+							"emoji": true
+						},
+						"value": "value-1"
+					}
+				]
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Send feedback",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "FAQs",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				}
+			]
+		}
+	]
+}
+                                                    
+                                                    );
     console.log(result);
   }
   catch (error) {
@@ -181,98 +307,8 @@ app.command('/text', async ({ body,ack, payload, context }) => {
       // Channel to send message to
       channel: payload.channel_id,
       // Include a button in the message (or whatever blocks you want!)
+      
 
-	"type": "modal",
-	"title": {
-		"type": "plain_text",
-		"text": "My App",
-		"emoji": true
-	},
-	"submit": {
-		"type": "plain_text",
-		"text": "Submit",
-		"emoji": true
-	},
-	"close": {
-		"type": "plain_text",
-		"text": "Cancel",
-		"emoji": true
-	},
-	"blocks": [
-		{
-			"type": "input",
-			"element": {
-				"type": "plain_text_input",
-				"action_id": "title",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "What do you want to ask of the world?"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "Title"
-			}
-		},
-		{
-			"type": "input",
-			"element": {
-				"type": "multi_channels_select",
-				"action_id": "channels",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "Where should the poll be sent?"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "Channel(s)"
-			}
-		},
-		{
-			"type": "input",
-			"element": {
-				"type": "plain_text_input",
-				"action_id": "option_1",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "First option"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "Option 1"
-			}
-		},
-		{
-			"type": "input",
-			"element": {
-				"type": "plain_text_input",
-				"action_id": "option_2",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "How many options do they need, really?"
-				}
-			},
-			"label": {
-				"type": "plain_text",
-				"text": "Option 2"
-			}
-		},
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"action_id": "add_option",
-					"text": {
-						"type": "plain_text",
-						"text": "Add another option  "
-					}
-				}
-			]
-		}
-	]
 
       
 
