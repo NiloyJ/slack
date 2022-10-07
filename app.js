@@ -61,16 +61,85 @@ app.action('button_a', async ({ ack, body, context }) => {
       ts: body.message.ts,
       // Channel of message
       channel: body.channel.id,
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: '*The button was clicked!*'
-          }
-        }
-      ],
-      text: 'Message from Test App'
+
+	"type": "modal",
+	"title": {
+		"type": "plain_text",
+		"text": "My App",
+		"emoji": true
+	},
+	"submit": {
+		"type": "plain_text",
+		"text": "Submit",
+		"emoji": true
+	},
+	"close": {
+		"type": "plain_text",
+		"text": "Cancel",
+		"emoji": true
+	},
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Farmhouse Thai Cuisine*\n:star::star::star::star: 1528 reviews\n They do have some vegan options, like the roti and curry, plus they have a ton of salad stuff and noodles can be ordered without meat!! They have something for everyone here"
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/c7ed05m9lC2EmA3Aruue7A/o.jpg",
+				"alt_text": "alt text for image"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Farmhouse",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Kin Khao",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Ler Ros",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				}
+			]
+		}
+	]
+
     });
     console.log(result);
   }
@@ -106,156 +175,30 @@ app.command('/slash-demo-yt', async ({ ack, payload, context }) => {
 
   try {
     const result = await app.client.chat.postMessage({
-      token: process.env.O_Auth_Token,
+      token: context.botToken,
       // Channel to send message to
       channel: payload.channel_id,
       // Include a button in the message (or whatever blocks you want!)
-      
-	"type": "modal",
-	"submit": {
-		"type": "plain_text",
-		"text": "Submit",
-		"emoji": true
-	},
-	"close": {
-		"type": "plain_text",
-		"text": "Cancel",
-		"emoji": true
-	},
-	"title": {
-		"type": "plain_text",
-		"text": "App menu",
-		"emoji": true
-	},
-	"blocks": [
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Hi <fakelink.toUser.com|@David>!* Here's how I can help you:"
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":calendar: *Create event*\nCreate a new event"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Create event",
-					"emoji": true
-				},
-				"style": "primary",
-				"value": "click_me_123"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":clipboard: *List of events*\nChoose from different event lists"
-			},
-			"accessory": {
-				"type": "static_select",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "Choose list",
-					"emoji": true
-				},
-				"options": [
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "My events",
-							"emoji": true
-						},
-						"value": "value-0"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "All events",
-							"emoji": true
-						},
-						"value": "value-1"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "Event invites",
-							"emoji": true
-						},
-						"value": "value-1"
-					}
-				]
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":gear: *Settings*\nManage your notifications and team settings"
-			},
-			"accessory": {
-				"type": "static_select",
-				"placeholder": {
-					"type": "plain_text",
-					"text": "Edit settings",
-					"emoji": true
-				},
-				"options": [
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "Notifications",
-							"emoji": true
-						},
-						"value": "value-0"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "Team settings",
-							"emoji": true
-						},
-						"value": "value-1"
-					}
-				]
-			}
-		},
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Send feedback",
-						"emoji": true
-					},
-					"value": "click_me_123"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "FAQs",
-						"emoji": true
-					},
-					"value": "click_me_123"
-				}
-			]
-		}
-	]
-}
-                                                    
-                                                    );
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: 'Go ahead. Click it.'
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Click me!'
+            },
+            action_id: 'button_abc'
+          }
+        }
+      ],
+      // Text in the notification
+      text: 'Message from Test App'
+    });
     console.log(result);
   }
   catch (error) {
@@ -277,16 +220,86 @@ app.action('button_abc', async ({ ack, body, context }) => {
       ts: body.message.ts,
       // Channel of message
       channel: body.channel.id,
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: '*The button was clicked!*'
-          }
-        }
-      ],
-      text: 'Message from Test App'
+
+	"type": "modal",
+	"title": {
+		"type": "plain_text",
+		"text": "My App",
+		"emoji": true
+	},
+	"submit": {
+		"type": "plain_text",
+		"text": "Submit",
+		"emoji": true
+	},
+	"close": {
+		"type": "plain_text",
+		"text": "Cancel",
+		"emoji": true
+	},
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Farmhouse Thai Cuisine*\n:star::star::star::star: 1528 reviews\n They do have some vegan options, like the roti and curry, plus they have a ton of salad stuff and noodles can be ordered without meat!! They have something for everyone here"
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/c7ed05m9lC2EmA3Aruue7A/o.jpg",
+				"alt_text": "alt text for image"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Farmhouse",
+						"emoji": true
+					},
+					"value": "click_me_123"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Kin Khao",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Ler Ros",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				}
+			]
+		}
+	]
+
+      
     });
     console.log(result);
   }
